@@ -1,0 +1,495 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* ========================================
+   CORREÇÕES DE ACESSIBILIDADE (WCAG AA)
+   ======================================== */
+
+/* Breadcrumbs com contraste adequado */
+.fi-breadcrumbs-item {
+    @apply text-gray-300 font-medium transition-colors;
+}
+
+.fi-breadcrumbs-item:hover {
+    @apply text-amber-500;
+}
+
+.fi-breadcrumbs-separator {
+    @apply text-gray-600;
+}
+
+/* Placeholders legíveis */
+.fi-input::placeholder,
+.fi-select-placeholder {
+    @apply text-gray-400;
+    opacity: 0.9 !important;
+}
+
+/* Textos secundários com contraste adequado (ratio 4.5:1) */
+.fi-section-description,
+.fi-fo-field-wrp-helper-text,
+.fi-ta-empty-state-description,
+.fi-wi-stats-overview-stat-description {
+    @apply text-gray-300;
+}
+
+/* Links clicáveis nos cards de métricas */
+.fi-wi-stats-overview-stat-value a,
+.fi-wi-stats-overview-stat-description a {
+    @apply underline underline-offset-2 hover:text-amber-400 transition-colors;
+}
+
+/* ========================================
+   HIERARQUIA VISUAL
+   ======================================== */
+
+/* Títulos de página */
+.fi-header-heading {
+    @apply text-3xl font-bold tracking-tight;
+}
+
+/* Títulos de seções */
+.fi-section-header-heading {
+    @apply text-lg font-semibold text-gray-100;
+}
+
+/* ========================================
+   DENSIDADE E ESPAÇAMENTO
+   ======================================== */
+
+/* Tabelas mais compactas */
+.fi-ta-row {
+    @apply py-2.5;
+}
+
+.fi-ta-cell {
+    @apply text-sm;
+}
+
+/* Espaçamento entre seções */
+.fi-section+.fi-section {
+    @apply mt-6;
+}
+
+/* Padding interno dos cards */
+.fi-section-content {
+    @apply p-6;
+}
+
+/* ========================================
+   RODAPÉ
+   ======================================== */
+
+.fi-footer {
+    @apply border-t border-gray-800 mt-auto pt-6 pb-4;
+    @apply text-center;
+}
+
+.fi-footer-text {
+    @apply text-gray-400 text-xs;
+    @apply block;
+}
+
+/* ========================================
+   BOTÕES E AÇÕES
+   ======================================== */
+
+/* Botão primário = Gold (ações principais) */
+.fi-btn-primary {
+    @apply bg-amber-500 hover:bg-amber-600 text-gray-950 font-semibold;
+    @apply shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40;
+    @apply transition-all duration-200;
+}
+
+/* Botão secundário = Outline cinza */
+.fi-btn-secondary,
+.fi-btn-outlined {
+    @apply border border-gray-600 text-gray-300;
+    @apply hover:bg-gray-800/50 hover:border-gray-500;
+    @apply transition-all duration-200;
+}
+
+/* Botão danger = Vermelho outline */
+.fi-btn-danger {
+    @apply border border-red-600/60 text-red-400 bg-transparent;
+    @apply hover:bg-red-950/50 hover:border-red-500 hover:text-red-300;
+    @apply transition-all duration-200;
+}
+
+/* ========================================
+   ESTADOS INTERATIVOS
+   ======================================== */
+
+/* Focus rings globais consistentes */
+.fi-input:focus,
+.fi-input:focus-visible,
+.fi-select:focus,
+.fi-select:focus-visible {
+    @apply ring-2 ring-amber-500 ring-offset-2 ring-offset-gray-950 outline-none;
+}
+
+/* Focus em botões */
+.fi-btn:focus-visible {
+    @apply ring-2 ring-amber-500 ring-offset-2 ring-offset-gray-950 outline-none;
+}
+
+/* Focus em checkboxes e toggles */
+.fi-checkbox:focus-visible,
+.fi-toggle:focus-visible {
+    @apply ring-2 ring-amber-500 ring-offset-2 ring-offset-gray-950;
+}
+
+/* Hover nos cards */
+.fi-section {
+    @apply transition-all duration-200 hover:shadow-lg hover:shadow-gray-900/50;
+}
+
+/* Micro-animações globais */
+.fi-btn,
+.fi-sidebar-item,
+.fi-ta-row {
+    @apply transition-all duration-200 ease-out;
+}
+
+/* ========================================
+   NAVEGAÇÃO SIDEBAR
+   ======================================== */
+
+/* Item ativo com background sutil */
+.fi-sidebar-item-active {
+    @apply bg-gray-800/60;
+}
+
+/* Separadores entre grupos */
+.fi-sidebar-group+.fi-sidebar-group {
+    @apply border-t border-gray-800 mt-4 pt-4;
+}
+
+/* Borda inferior no último grupo da sidebar */
+.fi-sidebar-nav {
+    @apply pb-4 border-b border-gray-800;
+}
+
+/* Container da sidebar com padding bottom */
+.fi-sidebar {
+    @apply flex flex-col;
+}
+
+.fi-sidebar-nav {
+    @apply flex-1;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .fi-header-heading {
+        @apply text-2xl;
+    }
+
+    .fi-ta-cell {
+        @apply text-xs;
+    }
+}
+
+/* ========================================
+   CAMPOS DESABILITADOS
+   ======================================== */
+
+/* Estado desabilitado mais claro */
+.fi-input:disabled,
+.fi-select:disabled,
+[disabled] .fi-input,
+.fi-fo-field-wrp[disabled] {
+    @apply opacity-50 cursor-not-allowed;
+    @apply bg-gray-900/30;
+}
+
+/* Placeholder de select desabilitado */
+.fi-select:disabled .fi-select-placeholder {
+    @apply text-gray-500;
+}
+
+/* ========================================
+   CARDS DE MÉTRICAS (Stats Overview)
+   ======================================== */
+
+/* Borda colorida à esquerda */
+.fi-wi-stats-overview-stat {
+    @apply border-l-4 border-l-amber-500;
+}
+
+/* Variantes de cor por contexto */
+.fi-wi-stats-overview-stat.text-success,
+.fi-wi-stats-overview-stat[data-color="success"] {
+    @apply border-l-emerald-500;
+}
+
+.fi-wi-stats-overview-stat.text-warning,
+.fi-wi-stats-overview-stat[data-color="warning"] {
+    @apply border-l-yellow-500;
+}
+
+.fi-wi-stats-overview-stat.text-danger,
+.fi-wi-stats-overview-stat[data-color="danger"] {
+    @apply border-l-red-500;
+}
+
+.fi-wi-stats-overview-stat.text-info,
+.fi-wi-stats-overview-stat[data-color="info"] {
+    @apply border-l-sky-500;
+}
+
+/* ========================================
+   GLASSMORPHISM (Header e Sidebar)
+   ======================================== */
+
+/* Header com blur sutil */
+.fi-topbar {
+    @apply backdrop-blur-md bg-gray-950/80;
+}
+
+/* Sidebar com transparência */
+.fi-sidebar {
+    @apply bg-gray-950/95 backdrop-blur-sm;
+}
+
+/* ========================================
+   TOGGLE SWITCHES
+   ======================================== */
+
+.fi-toggle {
+    @apply transition-colors duration-150;
+}
+
+.fi-toggle:checked {
+    @apply bg-emerald-500;
+}
+
+/* ========================================
+   EMPTY STATES
+   ======================================== */
+
+/* Container centralizado */
+.fi-ta-empty-state {
+    @apply py-12 text-center;
+}
+
+/* Ícone grande e estilizado */
+.fi-ta-empty-state-icon {
+    @apply mx-auto mb-4 text-gray-500;
+    @apply w-16 h-16 opacity-60;
+}
+
+/* Título do estado vazio */
+.fi-ta-empty-state-heading {
+    @apply text-xl font-semibold text-gray-200 mb-2;
+}
+
+/* Descrição com contraste adequado */
+.fi-ta-empty-state-description {
+    @apply text-gray-400 mb-6 max-w-md mx-auto;
+}
+
+/* Botão de ação */
+.fi-ta-empty-state-actions {
+    @apply flex justify-center gap-3;
+}
+
+/* ========================================
+   SKELETON LOADERS
+   ======================================== */
+
+/* Animação de pulse */
+@keyframes skeleton-pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* Skeleton base */
+.fi-skeleton,
+[data-loading="true"] {
+    @apply bg-gray-800 rounded;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Skeleton para texto */
+.fi-skeleton-text {
+    @apply h-4 bg-gray-800 rounded;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Skeleton para cards */
+.fi-skeleton-card {
+    @apply h-24 bg-gray-800 rounded-lg;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* ========================================
+   CALENDÁRIO (FullCalendar via Guava)
+   ======================================== */
+
+/* Background do calendário */
+.fc {
+    --fc-border-color: #374151;
+    --fc-page-bg-color: transparent;
+    --fc-neutral-bg-color: #1f2937;
+    --fc-today-bg-color: rgba(213, 143, 5, 0.15);
+}
+
+/* Header do calendário */
+.fc .fc-toolbar-title {
+    @apply text-gray-100 font-semibold text-lg;
+}
+
+/* Botões do calendário */
+.fc .fc-button {
+    @apply bg-gray-800 border-gray-700 text-gray-300;
+    @apply hover:bg-gray-700 transition-colors;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+    @apply bg-amber-500 border-amber-500 text-gray-950;
+}
+
+/* Células do calendário */
+.fc .fc-daygrid-day {
+    @apply transition-colors;
+}
+
+.fc .fc-daygrid-day:hover {
+    @apply bg-gray-800/50;
+}
+
+/* Dia atual */
+.fc .fc-day-today {
+    @apply bg-amber-500/10;
+}
+
+/* Eventos */
+.fc .fc-event {
+    @apply rounded px-1.5 py-0.5 text-xs font-medium;
+    @apply border-0 shadow-sm;
+    @apply transition-transform hover:scale-105;
+}
+
+/* Indicador de múltiplos eventos */
+.fc .fc-daygrid-more-link {
+    @apply text-amber-400 font-medium hover:text-amber-300;
+}
+
+/* Número do dia */
+.fc .fc-daygrid-day-number {
+    @apply text-gray-400 text-sm p-2;
+}
+
+/* Dia atual - número destacado */
+.fc .fc-day-today .fc-daygrid-day-number {
+    @apply text-amber-500 font-bold;
+}
+
+/* ========================================
+   CORREÇÕES DE LAYOUT DE FORMULÁRIOS (FORÇADO)
+   ======================================== */
+
+/* Espaçamento uniforme entre seções */
+.fi-form>.grid {
+    gap: 1.5rem !important;
+    /* gap-6 */
+}
+
+/* Evitar quebra de texto em selects - Alvo específico */
+.fi-select-input,
+.fi-fo-select-wrp .fi-select-input {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-width: 120px !important;
+}
+
+/* Forçar altura mínima em selects para alinhar com inputs de texto */
+.fi-fo-select .fi-select-trigger,
+.fi-fo-select .fi-select-input {
+    min-height: 2.25rem !important;
+}
+
+/* Labels de options não devem quebrar */
+.fi-select-input option {
+    white-space: nowrap !important;
+}
+
+/* Espaçamento interno de seções */
+.fi-section-content {
+    padding: 1.5rem !important;
+    /* p-6 */
+}
+
+/* Rodapé centralizado forçado */
+.fi-footer {
+    text-align: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.fi-footer-content {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+
+/* Sidebar fixes */
+.fi-sidebar-nav {
+    border-bottom: 1px solid rgba(75, 85, 99, 0.4) !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+/* ========================================
+   FIX ÍCONES GIGANTES (SVG PREFLIGHT)
+   ======================================== */
+
+.fi-icon,
+.fi-icon svg,
+.fi-sidebar-item-icon,
+.fi-topbar-item-icon {
+    width: 1.5rem !important;
+    /* w-6 */
+    height: 1.5rem !important;
+    /* h-6 */
+    display: inline-block !important;
+}
+
+/* Ícones de botão menores */
+.fi-btn-icon {
+    width: 1.25rem !important;
+    /* w-5 */
+    height: 1.25rem !important;
+    /* h-5 */
+}
+
+/* Ícone de fechar modal/notificação */
+.fi-modal-close-btn-icon,
+.fi-no-notification-close-btn-icon {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
