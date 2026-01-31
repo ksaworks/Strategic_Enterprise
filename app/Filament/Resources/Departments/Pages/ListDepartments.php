@@ -13,6 +13,11 @@ class ListDepartments extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            \Filament\Actions\Action::make('delayedReport')
+                ->label('Relatório de Atrasos')
+                ->icon('heroicon-o-document-text')
+                ->url(route('reports.departments.delayed'))
+                ->openUrlInNewTab(),
             CreateAction::make(),
         ];
     }

@@ -11,6 +11,21 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected static function booted()
+    {
+        static::created(function ($task) {
+            if ($task->owner) {
+                $task->owner->notify(new \App\Notifications\TaskAssigned($task));
+            }
+        });
+
+        static::updated(function ($task) {
+            if ($task->isDirty('owner_id') && $task->owner) {
+                $task->owner->notify(new \App\Notifications\TaskAssigned($task));
+            }
+        });
+    }
+
     protected $fillable = [
         'project_id',
         'parent_id',

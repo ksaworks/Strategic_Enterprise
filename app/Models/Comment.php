@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Comment extends Model
 {
+    protected static function booted()
+    {
+        static::created(function ($comment) {
+            $owner = $comment->commentable->owner ?? null;
+            if ($owner && $owner->id !== $comment->user_id) {
+                $owner->notify(new \App\Notifications\CommentNotification(
+                    $comment->commentable,
+                    $comment->user->name,
+                    $comment->body
+                ));
+            }
+        });
+    }
+
     protected $fillable = [
         'user_id',
         'commentable_id',

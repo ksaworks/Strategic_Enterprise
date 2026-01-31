@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
+
+    protected static function booted()
+    {
+        static::created(function ($project) {
+            if ($project->owner) {
+                $project->owner->notify(new \App\Notifications\ProjectAdded($project));
+            }
+        });
+    }
     protected $fillable = [
         'company_id',
         'owner_id',

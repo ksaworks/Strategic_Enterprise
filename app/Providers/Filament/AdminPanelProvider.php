@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->databaseNotifications()
             ->spa() // Single Page Application mode
             ->colors([
                 'primary' => Color::hex('#d58f05'), // Gold

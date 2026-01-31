@@ -39,4 +39,8 @@ class Department extends Model
     {
         return $this->hasMany(Department::class, 'parent_id');
     }
+    public function contacts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Contact::class);
+    }
 }
