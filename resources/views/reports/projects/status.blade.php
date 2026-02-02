@@ -142,8 +142,8 @@
             <tr>
                 <th>Status:</th>
                 <td>
-                    <span class="badge status-{{ $project->status ?? 'default' }}">
-                        {{ ucfirst($project->status) }}
+                    <span class="badge status-{{ $project->status instanceof \UnitEnum ? $project->status->value : ($project->status ?? 'default') }}">
+                        {{ $project->status instanceof \Filament\Support\Contracts\HasLabel ? $project->status->getLabel() : ($project->status ?? 'N/A') }}
                     </span>
                 </td>
             </tr>
@@ -176,7 +176,7 @@
                     <tr>
                         <td>{{ $task->name }}</td>
                         <td>{{ $task->end_date ? $task->end_date->format('d/m/Y') : '-' }}</td>
-                        <td>{{ ucfirst($task->status) }}</td>
+<td>{{ $task->status instanceof \Filament\Support\Contracts\HasLabel ? $task->status->getLabel() : $task->status }}</td>
                     </tr>
                 @empty
                     <tr>

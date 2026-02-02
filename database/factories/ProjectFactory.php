@@ -25,7 +25,7 @@ class ProjectFactory extends Factory
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
             'status' => 0, // 0: Pending/Planning
-            'priority' => 1, // 1: Medium
+            'priority' => \App\Enums\Priority::MEDIUM, // 5: Medium
             'is_active' => true,
         ];
     }

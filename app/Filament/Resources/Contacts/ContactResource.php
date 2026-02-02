@@ -22,9 +22,19 @@ class ContactResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'first_name';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Gestão';
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
 
     protected static ?int $navigationSort = 2;
+
+    public static function getModelLabel(): string
+    {
+        return 'Contato';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Contatos';
+    }
 
     public static function form(Schema $schema): Schema
     {

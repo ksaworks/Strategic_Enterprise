@@ -22,6 +22,16 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return 'Usuário';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Usuários';
+    }
+
     protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
 
     protected static ?int $navigationSort = 1;

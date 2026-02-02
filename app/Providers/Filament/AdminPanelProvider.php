@@ -52,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo-strategic.svg'))
             ->darkModeBrandLogo(asset('images/logo-strategic.svg'))
             ->brandLogoHeight('2.5rem')
-            ->favicon(asset('images/favicon.png'))
+            ->favicon(asset('favicon.ico'))
             ->font('Instrument Sans')
             ->globalSearch(true)
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
@@ -98,6 +98,8 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn(): string => Blade::render(<<<'BLADE'
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css">
+                    <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
                     <style>
                         /* Safe Layout Fixes */
                         .fi-footer { display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; }

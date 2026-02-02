@@ -22,9 +22,19 @@ class DepartmentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Gestão';
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
 
     protected static ?int $navigationSort = 3;
+
+    public static function getModelLabel(): string
+    {
+        return 'Departamento';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Departamentos';
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -19,16 +19,28 @@ class CompanyResourceResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cube';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Resources';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recursos';
+
+    public static function getModelLabel(): string
+    {
+        return 'Recurso da Empresa';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Recursos da Empresa';
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
+                    ->label('Tipo')
                     ->options([
                         'Sala' => 'Sala',
                         'Equipamento' => 'Equipamento',

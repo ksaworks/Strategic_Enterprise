@@ -22,9 +22,19 @@ class TaskResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Projetos';
+    protected static string | \UnitEnum | null $navigationGroup = 'Projetos';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 2; // After Projects
+
+    public static function getModelLabel(): string
+    {
+        return 'Tarefa';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Tarefas';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -39,6 +49,7 @@ class TaskResource extends Resource
     public static function getRelations(): array
     {
         return [
+            \App\Filament\Resources\Tasks\RelationManagers\CostItemsRelationManager::class,
             \App\Filament\Resources\Companies\RelationManagers\DocumentsRelationManager::class,
             \App\Filament\RelationManagers\CommentsRelationManager::class,
         ];

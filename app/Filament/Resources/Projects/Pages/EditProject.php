@@ -35,4 +35,10 @@ class EditProject extends EditRecord
                 ->link(),
         ];
     }
+    protected function getFooterWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Projects\Widgets\ProjectGanttChart::class,
+        ];
+    }
 }

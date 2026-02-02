@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Tasks\Tables;
 
+use App\Enums\Priority;
+use App\Enums\TaskStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -26,14 +28,15 @@ class TasksTable
                 TextColumn::make('name')
                     ->label('Tarefa')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn($record): ?string => $record->parent?->name),
                 TextColumn::make('owner.name')
                     ->label('Responsável')
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->formatStateUsing(fn(int $state): string => match ($state) {
+                    ->formatStateUsing(fn($state): string => $state instanceof TaskStatus ? $state->getLabel() : match ((int) $state) {
                         0 => 'A Fazer',
                         1 => 'Em Andamento',
                         2 => 'Aguardando',
@@ -41,7 +44,7 @@ class TasksTable
                         4 => 'Cancelada',
                         default => 'Desconhecido',
                     })
-                    ->color(fn(int $state): string => match ($state) {
+                    ->color(fn($state): string => $state instanceof TaskStatus ? $state->getColor() : match ((int) $state) {
                         0 => 'gray',
                         1 => 'info',
                         2 => 'warning',
@@ -51,20 +54,27 @@ class TasksTable
                     })
                     ->sortable(),
                 TextColumn::make('priority')
+                    ->label('Prioridade')
                     ->badge()
-                    ->formatStateUsing(fn(int $state): string => match ($state) {
+                    ->formatStateUsing(fn($state): string => $state instanceof Priority ? $state->getLabel() : match ((int) $state) {
                         0 => 'Baixa',
                         5 => 'Média',
                         9 => 'Alta',
                         default => 'Média',
                     })
-                    ->color(fn(int $state): string => match ($state) {
+                    ->color(fn($state): string => $state instanceof Priority ? $state->getColor() : match ((int) $state) {
                         0 => 'gray',
-                        5 => 'info',
+                        5 => 'warning',
                         9 => 'danger',
                         default => 'gray',
                     })
                     ->sortable(),
+                TextColumn::make('progress')
+                    ->label('Progresso')
+                    ->numeric()
+                    ->suffix('%')
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('end_date')
                     ->label('Prazo')
                     ->date('d/m/Y')
@@ -77,13 +87,10 @@ class TasksTable
                     ->searchable()
                     ->preload(),
                 SelectFilter::make('status')
-                    ->options([
-                        0 => 'A Fazer',
-                        1 => 'Em Andamento',
-                        2 => 'Aguardando',
-                        3 => 'Concluída',
-                        4 => 'Cancelada',
-                    ]),
+                    ->options(TaskStatus::toSelectArray()),
+                SelectFilter::make('priority')
+                    ->label('Prioridade')
+                    ->options(Priority::toSelectArray()),
             ])
             ->recordActions([
                 EditAction::make(),

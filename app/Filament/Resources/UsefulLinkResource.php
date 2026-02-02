@@ -19,13 +19,24 @@ class UsefulLinkResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-link';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Resources';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recursos';
+
+    public static function getModelLabel(): string
+    {
+        return 'Link Útil';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Links Úteis';
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Forms\Components\TextInput::make('title')
+                    ->label('Título')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
@@ -35,11 +46,14 @@ class UsefulLinkResource extends Resource
                     ->maxLength(255)
                 ,
                 Forms\Components\Textarea::make('description')
+                    ->label('Descrição')
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('category')
+                    ->label('Categoria')
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Ativo')
                     ->required()
                     ->default(true),
             ]);
@@ -50,6 +64,7 @@ class UsefulLinkResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Título')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->label('URL')
@@ -58,6 +73,7 @@ class UsefulLinkResource extends Resource
                     ->openUrlInNewTab()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category')
+                    ->label('Categoria')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),

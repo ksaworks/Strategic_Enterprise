@@ -22,9 +22,19 @@ class CompanyResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Gestão';
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
 
     protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return 'Empresa';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Empresas';
+    }
 
     public static function form(Schema $schema): Schema
     {

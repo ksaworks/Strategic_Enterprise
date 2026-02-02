@@ -22,9 +22,19 @@ class EventResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Gestão';
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
 
     protected static ?int $navigationSort = 4;
+
+    public static function getModelLabel(): string
+    {
+        return 'Evento';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Eventos';
+    }
 
     public static function form(Schema $schema): Schema
     {

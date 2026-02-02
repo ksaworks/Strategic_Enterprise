@@ -23,6 +23,18 @@ class DocumentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static string | \UnitEnum | null $navigationGroup = 'Sistema';
+
+    public static function getModelLabel(): string
+    {
+        return 'Documento';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Documentos';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return DocumentForm::configure($schema);

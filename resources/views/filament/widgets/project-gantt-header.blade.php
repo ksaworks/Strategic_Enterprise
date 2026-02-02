@@ -21,7 +21,6 @@
                         arrow_curve: 5,
                         padding: 18,
                         view_mode: 'Month',
-                        language: 'pt-BR',
                         custom_popup_html: function(task) {
                             return `
                                 <div class='details-container p-2' style='background: #0f1729; color: #fff; border-radius: 4px; border: 1px solid #d58f05;'>

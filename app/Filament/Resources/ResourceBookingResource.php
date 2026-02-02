@@ -20,30 +20,45 @@ class ResourceBookingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Resources';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recursos';
+
+    public static function getModelLabel(): string
+    {
+        return 'Reserva de Recurso';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Reservas de Recursos';
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Forms\Components\Select::make('resource_id')
+                    ->label('Recurso')
                     ->relationship('resource', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
                 Forms\Components\Select::make('user_id')
+                    ->label('Usuário')
                     ->relationship('user', 'name')
                     ->searchable()
                     ->required()
                     ->default(auth()->id()),
                 Forms\Components\Select::make('project_id')
+                    ->label('Projeto')
                     ->relationship('project', 'name')
                     ->searchable()
                     ->nullable(),
                 Forms\Components\DateTimePicker::make('start_time')
+                    ->label('Início')
                     ->required()
                     ->seconds(false),
                 Forms\Components\DateTimePicker::make('end_time')
+                    ->label('Fim')
                     ->required()
                     ->seconds(false)
                     ->after('start_time')
@@ -76,6 +91,7 @@ class ResourceBookingResource extends Resource
                         };
                     }),
                 Forms\Components\TextInput::make('purpose')
+                    ->label('Propósito/Motivo')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
@@ -94,19 +110,22 @@ class ResourceBookingResource extends Resource
                     ->label('Reservado por')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_time')
+                    ->label('Início')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('end_time')
+                    ->label('Fim')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('purpose')
+                    ->label('Motivo')
                     ->limit(30)
                     ->searchable(),
             ])
             ->defaultSort('start_time', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('resource_id')
-                    ->label('Resource')
+                    ->label('Recurso')
                     ->relationship('resource', 'name'),
             ])
             ->recordActions([
