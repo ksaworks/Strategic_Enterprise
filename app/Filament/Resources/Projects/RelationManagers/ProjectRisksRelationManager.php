@@ -142,13 +142,13 @@ class ProjectRisksRelationManager extends RelationManager
                 TextColumn::make('probability')
                     ->label('Prob.')
                     ->badge()
-                    ->formatStateUsing(fn($state): string => $state instanceof RiskProbability ? $state->label() : RiskProbability::tryFrom((int) $state)?->label() ?? $state)
+                    ->formatStateUsing(fn($state): string => $state instanceof RiskProbability ? $state->getLabel() : RiskProbability::tryFrom((int) $state)?->getLabel() ?? $state)
                     ->color(fn($state): string => $state instanceof RiskProbability ? $state->getColor() : 'gray'),
 
                 TextColumn::make('impact')
                     ->label('Impacto')
                     ->badge()
-                    ->formatStateUsing(fn($state): string => $state instanceof RiskImpact ? $state->label() : RiskImpact::tryFrom((int) $state)?->label() ?? $state)
+                    ->formatStateUsing(fn($state): string => $state instanceof RiskImpact ? $state->getLabel() : RiskImpact::tryFrom((int) $state)?->getLabel() ?? $state)
                     ->color(fn($state): string => $state instanceof RiskImpact ? $state->getColor() : 'gray'),
 
                 TextColumn::make('score')
