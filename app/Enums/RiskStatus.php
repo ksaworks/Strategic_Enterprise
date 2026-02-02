@@ -55,5 +55,15 @@ enum RiskStatus: string implements HasLabel, HasColor, HasIcon
             self::OCCURRED => 'heroicon-o-x-circle',
         };
     }
+
+    /**
+     * Helper para Filament Select options
+     */
+    public static function toSelectArray(): array
+    {
+        return collect(self::cases())->mapWithKeys(
+            fn($case) => [$case->value => $case->getLabel()]
+        )->toArray();
+    }
 }
 
